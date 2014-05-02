@@ -19,12 +19,12 @@ func (r *Router) HostFor(query string) string {
   // Try routing by exact match
   match := r.routes[query]
   if match != nil && len(match) > 0 {
-    return match[0]
+    return random(match)
   }
   // Try to route based on prefixes
   for path, hosts := range r.routes {
     if strings.HasPrefix(query, path) && len(hosts) > 0 {
-      return hosts[0]
+      return random(hosts)
     }
   }
   // Could not find a match
